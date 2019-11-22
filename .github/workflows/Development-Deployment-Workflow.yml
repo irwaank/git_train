@@ -7,9 +7,10 @@ on:
 jobs:
   job_1:
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
+        platform: [ubuntu-latest, macos-latest]
         node-version: [10.16.0]
     steps:
       - name: Checkout pushed branch
@@ -21,9 +22,6 @@ jobs:
       - name: NPM install
         run: |
           npm install
-      - name: NPM test
-        run: |
-          npm test
         env:
           CI: true
   job_2:
